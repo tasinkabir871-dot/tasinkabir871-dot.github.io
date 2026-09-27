@@ -1,29 +1,11 @@
-const menuToggle = document.querySelector(".menu-toggle");
-const navLinks = document.querySelector(".nav-links");
-
-menuToggle?.addEventListener("click", () => {
-  const open = navLinks.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", open);
-  menuToggle.textContent = open ? "×" : "☰";
-});
-
-document.querySelectorAll(".nav-links a").forEach(link => {
-  link.addEventListener("click", () => {
-    navLinks.classList.remove("open");
-    menuToggle?.setAttribute("aria-expanded", "false");
-    if (menuToggle) menuToggle.textContent = "☰";
-  });
-});
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-      observer.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.12 });
-
-document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
-
-document.getElementById("year").textContent = new Date().getFullYear();
+const menuToggle=document.querySelector(".menu-toggle"),navLinks=document.querySelector(".nav-links");
+menuToggle?.addEventListener("click",()=>{const open=navLinks.classList.toggle("open");menuToggle.setAttribute("aria-expanded",open);menuToggle.textContent=open?"×":"☰"});
+document.querySelectorAll(".nav-links a").forEach(a=>a.addEventListener("click",()=>{navLinks.classList.remove("open");menuToggle?.setAttribute("aria-expanded","false");if(menuToggle)menuToggle.textContent="☰"}));
+const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add("visible");observer.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll(".reveal").forEach(e=>observer.observe(e));
+document.getElementById("year").textContent=new Date().getFullYear();
+const modal=document.getElementById("certModal");
+document.getElementById("certificateBtn")?.addEventListener("click",()=>{modal.classList.add("open");modal.setAttribute("aria-hidden","false")});
+document.querySelector(".modal-close")?.addEventListener("click",()=>{modal.classList.remove("open");modal.setAttribute("aria-hidden","true")});
+modal?.addEventListener("click",e=>{if(e.target===modal){modal.classList.remove("open");modal.setAttribute("aria-hidden","true")}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){modal?.classList.remove("open");modal?.setAttribute("aria-hidden","true")}});
